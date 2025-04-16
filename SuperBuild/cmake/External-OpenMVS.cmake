@@ -52,7 +52,8 @@ ExternalProject_Add(${_proj_name}
   STAMP_DIR         ${_SB_BINARY_DIR}/stamp
   #--Download step--------------
   DOWNLOAD_DIR      ${SB_DOWNLOAD_DIR}
-  GIT_REPOSITORY    https://github.com/OpenDroneMap/openMVS
+  #GIT_REPOSITORY    https://github.com/OpenDroneMap/openMVS
+  GIT_REPOSITORY    https://github.com/FranciscoRaverta/SopenMVS
   GIT_TAG           320
   #--Update/Patch step----------
   UPDATE_COMMAND    ""

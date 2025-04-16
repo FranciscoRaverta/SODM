@@ -24,12 +24,13 @@ ExternalProject_Add(${_proj_name}
   STAMP_DIR         ${_SB_BINARY_DIR}/stamp
   #--Download step--------------
   DOWNLOAD_DIR      ${SB_DOWNLOAD_DIR}
-  GIT_REPOSITORY    https://github.com/OpenDroneMap/OpenSfM/
-  GIT_TAG           352
+  GIT_REPOSITORY    https://github.com/FranciscoRaverta/SOpenSfM/
+  GIT_TAG           404
   #--Update/Patch step----------
   UPDATE_COMMAND    git submodule update --init --recursive
   #--Configure step-------------
   SOURCE_DIR        ${SB_INSTALL_DIR}/bin/${_proj_name}
+  #SOURCE_DIR        /code/opensfm
   CONFIGURE_COMMAND ${CMAKE_COMMAND} <SOURCE_DIR>/${_proj_name}/src
     -DCERES_ROOT_DIR=${SB_INSTALL_DIR}
     -DOpenCV_DIR=${OpenCV_DIR}

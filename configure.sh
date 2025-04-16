@@ -69,6 +69,53 @@ ensure_prereqs() {
     sudo pip3 install -U pip
     sudo pip3 install -U shyaml
 }
+updateSFM() {
+    echo "Updating OpenSfM Dependencies"
+    installdepsfromsnapcraft build opensfm
+
+    echo "Compiling SuperBuild"
+    cd ${RUNPATH}/SuperBuild
+    #mkdir -p build && 
+    cd build
+    rm -rf ${RUNPATH}/SuperBuild/bin/opensfm
+    rm -rf ${RUNPATH}/SuperBuild/build/opensfm
+    cmake ..
+    make -j$processes opensfm
+
+    echo "Configuration Finished"
+}
+
+updateMVS() {
+    echo "Updating OpenMVS Dependencies"
+    installdepsfromsnapcraft build openmvs
+
+    echo "Compiling SuperBuild"
+    cd ${RUNPATH}/SuperBuild
+    #mkdir -p build && 
+    cd build
+    rm -rf ${RUNPATH}/SuperBuild/install/bin/openmvs
+    rm -rf ${RUNPATH}/SuperBuild/build/openmvs
+    cmake ..
+    make -j$processes openmvs
+
+    echo "Configuration Finished"
+}
+
+updateFilter() {
+    echo "Updating FPCFilter Dependencies"
+
+    echo "Compiling SuperBuild"
+    cd ${RUNPATH}/SuperBuild
+    #mkdir -p build &&
+    cd build
+    rm -rf ${RUNPATH}/SuperBuild/install/bin/FPCFilter
+    rm -rf ${RUNPATH}/SuperBuild/build/fpcfilter
+    cmake ..
+    make -j$processes fpcfilter
+
+    echo "Configuration Finished"
+}
+
 
 # Save all dependencies in snapcraft.yaml to maintain a single source of truth.
 # Maintaining multiple lists will otherwise be painful.
@@ -210,7 +257,7 @@ usage() {
     echo "[nproc] is an optional argument that can set the number of processes for the make -j tag. By default it uses $(nproc)"
 }
 
-if [[ $1 =~ ^(install|installruntimedepsonly|reinstall|uninstall|installreqs|clean)$ ]]; then
+if [[ $1 =~ ^(install|installruntimedepsonly|reinstall|uninstall|installreqs|clean|updateSFM|updateMVS)$ ]]; then
     RUNPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     "$1"
 else
@@ -218,3 +265,5 @@ else
     usage
     exit 1
 fi
+
+
