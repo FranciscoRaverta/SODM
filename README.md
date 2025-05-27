@@ -1,5 +1,16 @@
 ![ODM Logo](https://user-images.githubusercontent.com/1951843/79699889-438ce580-8260-11ea-9c79-8667834aeab2.png)
 
+## Fork Modifications
+This fork modifies the ODM software to add the capability to use semantic segmentation information of the images. It does a basic outlier filter at the matching stage, and it exports in the .ply the semantic values associated to the 3D points.
+
+The syntax for using it is:
+
+```bash
+python3 run.py --project-path /code/volume project --estimateSegmentation 2 --segmentation_path "/code/volume/project/segmentations"
+```
+where the segmentation folder contains the semantic segmentation masks corresponding to each of the images. For each image named image.png, there should be on that folder an image named image.png.png that corresponds with the semantic segmentation mask.
+
+## ODM
 An open source command line toolkit for processing aerial drone imagery. ODM turns simple 2D images into:
 
 * Classified Point Clouds
