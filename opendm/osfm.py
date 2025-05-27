@@ -246,7 +246,10 @@ class OSFMContext:
                 matcher_graph_rounds = 0
                 matcher_neighbors = 3
 
-            config = [
+            
+            
+            if args.estimateSegmentation == 2:
+                config = [
                 "use_exif_size: no",
                 "flann_algorithm: KDTREE", # more stable, faster than KMEANS
                 "feature_process_size: %s" % feature_process_size,
@@ -263,8 +266,29 @@ class OSFMContext:
                 "align_orientation_prior: vertical",
                 "triangulation_type: ROBUST",
                 "retriangulation_ratio: 2",
-            ]
-            
+                "matching_segmentation_filter: True",
+                "features_bake_segmentation: True",
+                ]
+            else:
+                config = [
+                "use_exif_size: no",
+                "flann_algorithm: KDTREE", # more stable, faster than KMEANS
+                "feature_process_size: %s" % feature_process_size,
+                "feature_min_frames: %s" % args.min_num_features,
+                "processes: %s" % args.max_concurrency,
+                "matching_gps_neighbors: %s" % matcher_neighbors,
+                "matching_gps_distance: 0",
+                "matching_graph_rounds: %s" % matcher_graph_rounds,
+                "optimize_camera_parameters: %s" % ('no' if args.use_fixed_camera_params else 'yes'),
+                "reconstruction_algorithm: %s" % (args.sfm_algorithm),
+                "undistorted_image_format: tif",
+                "bundle_outlier_filtering_type: AUTO",
+                "sift_peak_threshold: 0.066",
+                "align_orientation_prior: vertical",
+                "triangulation_type: ROBUST",
+                "retriangulation_ratio: 2",
+                ]
+
             if args.matcher_order > 0:
                 if not reconstruction.is_georeferenced():
                     config.append("matching_order_neighbors: %s" % args.matcher_order)

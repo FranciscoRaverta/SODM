@@ -878,6 +878,20 @@ def config(argv=None, parser=None):
                     help=('When processing multispectral datasets, ODM will automatically align the images for each band. '
                           'If the images have been postprocessed and are already aligned, use this option. '
                           'Default: %(default)s'))
+    
+    parser.add_argument('--estimateSegmentation',
+                        type=int,
+                        action=StoreValue,
+                        default=0,
+                        metavar='<positive integer>',
+                        help='Enables the estimation of the semantic segmentation labels for each point of the resulting .ply'
+                          'Default: %(default)s')
+    
+    parser.add_argument('--segmentation_path',
+                        metavar='<path>',
+                        action=StoreValue,
+                        help='Path to the segmentation image folder.')
+    
 
     args, unknown = parser.parse_known_args(argv)
     DEPRECATED = ["--verbose", "--debug", "--time", "--resize-to", "--depthmap-resolution", "--pc-geometric", "--texturing-data-term", "--texturing-outlier-removal-type", "--texturing-tone-mapping", "--texturing-skip-local-seam-leveling"]

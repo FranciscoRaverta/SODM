@@ -65,6 +65,8 @@ class ODMOpenMVSStage(types.ODM_Stage):
             filter_point_th = -20
 
             config = [
+                "--segmentation-path %s" % args.segmentation_path,
+                "--estimate-segmentations %s" % args.estimateSegmentation,
                 "--resolution-level %s" % int(resolution_level),
                 '--dense-config-file "%s"' % densify_ini_file,
                 "--max-resolution %s" % int(outputs['undist_image_max_size']),

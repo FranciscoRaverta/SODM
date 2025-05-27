@@ -115,6 +115,20 @@ updateFilter() {
 
     echo "Configuration Finished"
 }
+updateRender() {
+    echo "Updating RenderDEM Dependencies"
+
+    echo "Compiling SuperBuild"
+    cd ${RUNPATH}/SuperBuild
+    #mkdir -p build &&
+    cd build
+    rm -rf ${RUNPATH}/SuperBuild/install/bin/renderdem
+    rm -rf ${RUNPATH}/SuperBuild/build/renderdem
+    cmake ..
+    make -j$processes renderdem
+
+    echo "Configuration Finished"
+}
 
 
 # Save all dependencies in snapcraft.yaml to maintain a single source of truth.
